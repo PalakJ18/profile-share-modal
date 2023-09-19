@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile share Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .circle1 {
+            width: 130px;
+            height: 130px;
+            position: absolute;
+            top: 10%;
+            left: 25%;
+            animation: circleBlue 5s linear 0s infinite alternate none;
+
+
+        }
+
+        @keyframes circleBlue {
+            from {
+                left: 25%;
+                scale: 1;
+            }
+
+            to {
+                left: 40%;
+                scale: 1.3;
+            }
+        }
+
+        .circle2 {
+            width: 130px;
+            height: 130px;
+            position: absolute;
+            bottom: 10%;
+            right: 25%;
+            animation: circleGreen 4s linear 0s infinite alternate none;
+
+        }
+
+        @keyframes circleGreen {
+            from {
+                bottom: 10%;
+                right: 25%;
+            }
+
+            to {
+                bottom: 15%;
+                right: 35%;
+                scale: 1.3;
+            }
+        }
+
+        
+
+        .iconProfile {
+            color: white;
+        }
+
+        .shareProfile:hover .iconProfile {
+            color: black;
+        }
+
+        .modal {
+            scale: 0;
+            transition: 0.5s ease-in-out;
+        }
+
+        .active {
+            scale: 1;
+        }
+
+        .overlay {
+            position: fixed;
+            background-color: #5f5f5f83;
+            pointer-events: none;
+            transition: 0.5s ease-in-out;
+            opacity: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .overlayactive {
+            opacity: 1;
+            pointer-events: initial;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- wrapper -->
+    <div class=" justify-center items-center bg-black w-[100vw] h-[100vh] relative">
+        <!--2 circle image -->
+        <div class="circle1  circle">
+            <div class="rounded-full bg-blue-300 w-full z-0 blur-2xl h-full absolute">
+            </div>
+            <div class=" z-10 rounded-full bg-blue-500 w-full h-full  border-blue-600 border absolute ">
+            </div>
+        </div>
+
+        <div class="circle2 circle">
+            <div class="rounded-full bg-green-400 w-full h-full blur-2xl z-0 absolute"></div>
+            <div class=" z-10 rounded-full bg-green-500 w-full h-full absolute border-green-600 border">
+            </div>
+        </div>
+
+        <!-- content box -->
+        <div
+            class="absolute flex flex-col justify-center items-center w-[30%]  z-20 mt-[11%] ml-[35%] mr-[35%] h-fit  bg-gray-800  rounded-xl opacity-75 p-11 border-gray-500 border">
+            <div class="opacity-100"><img src="resume_pic.jpg" class=" rounded-full w-28 h-28"></div>
+            <div class="pt-5">
+                <h1 class="text-white font-bold opacity-100 text-lg">PALAK JAIN</h1>
+            </div>
+            <p class="pt-5 text-gray-300">Software Developer</p>
+            <div class=" flex flex-col  md:flex-row justify-around pt-5  w-full m-auto ">
+                <button onclick="openModal()"
+                    class=" text-gray-300 border-gray-200 border   w-[45%] p-2 px-2 hover:bg-white hover:text-black shareProfile"><i
+                        class="fa-solid fa-share px-1 iconProfile"></i>Share My Profile</button>
+                <button class=" text-gray-300 border-gray-200 border  w-[45%] px-2 p-2 hover:bg-white hover:text-black">Follow
+                    Me</button>
+            </div>
+        </div>
+
+        <!-- content box after  clicking  share my profile -->
+        <div
+            class=" absolute flex flex-col  w-[40%]  z-20 mt-[15%] ml-[30%] h-fit  bg-black  rounded-xl opacity-[90%] p-6 border-gray-500 border modal">
+            <div class=" flex flex-row justify-between pb-4">
+                <h1 class="text-white font-bold  text-lg"> Share My Profile</h1>
+                <i class="fa-solid fa-x" onclick="closeModal()" style="color: #ffffff;"></i>
+            </div>
+            <div class=" h-[2px] bg-gray-400 w-[100%] px-[3%]"></div>
+            <div>
+                <h4 class="text-white font-bold py-3">Share this via</h4>
+            </div>
+            <div class=" flex flex-row flex-wrap justify-around py-6 gap-[10%] ">
+                <a href="#"
+                    class="scale-[150%]  md:scale-[225%]  border border-[#35a1f3] rounded-full px-1 hover:border-white hover:scale-[2.7]"><i
+                        class="fa-brands fa-telegram " style="color: #35a1f3;"></i></a>
+                <a href="#"
+                    class="scale-[150%] md:scale-[225%] border border-[#008f2b] rounded-full px-1 hover:border-white hover:scale-[2.7]"><i
+                        class="fa-brands fa-whatsapp" style="color: #008f2b;"></i></a>
+                <a href="#"
+                    class="scale-[150%] md:scale-[225%] border border-[#0147c1] rounded-full px-1 hover:border-white hover:scale-[2.7]"><i
+                        class="fa-brands fa-linkedin-in" style="color: #0147c1;"></i></a>
+                <a href="#"
+                    class="scale-[150%] md:scale-[225%] border border-[#bd008a] rounded-full px-1 hover:border-white hover:scale-[2.7]"><i
+                        class="fa-brands fa-instagram" style="color: #bd008a;"></i></a>
+                <a href="#"
+                    class="scale-[150%] md:scale-[225%] border border-[#0041b3] rounded-full px-2 hover:border-white hover:scale-[2.7]"><i
+                        class="fa-brands fa-facebook-f" style="color: #0041b3;"></i></a>
+            </div>
+        </div>
+
+        <!-- OVERLAY -> all other part than the particular modal -->
+        <div class="overlay " onclick="closeModal()"></div>
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"> </script>
+    <script src="index.js"></script>
+</body>
+
+</html>
